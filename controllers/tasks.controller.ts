@@ -36,6 +36,7 @@ async function createTask(req: Request, res: Response) {
 async function deleteTask(req: Request, res: Response) {
     const id = req.params.id;
     await taskService.deleteTask(id);
+    res.send();
 }
 
 async function updateTask(req: Request, res: Response) {
