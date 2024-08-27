@@ -27,8 +27,11 @@ export default class TaskRepository {
     }
 
     public async update(task: Partial<ITask>): Promise<ITask> {
-        this.model.updateOne({_id: task._id}, {$set: task});
+        if (!task._id) {
+            throw new Error('Id is required');
+        }
 
-        return this.findById(task._id);
+        await this.model.updateOne({_id: task._id}, {$set: task});
+        return this.findById(task._id || '');
     }
 }
